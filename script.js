@@ -33,7 +33,7 @@ function load() {
                 <div className='column col-2'>
                     <div className='columns'>
 
-                        <div className='column col-5'>
+                        <div className='column col-6'  style={{"textAlign": "right"}}>
                             <div className='float-right p-relative' style={{"fontSize": "21px", "top": "-5px"}}>Username: </div>
 
                             <br/><br/>
@@ -41,7 +41,7 @@ function load() {
                             <div className='float-right p-relative' style={{"fontSize": "21px", "top": "1px"}}>Password: </div>
                         </div>
 
-                        <div className='column col-7'>
+                        <div className='column col-6'>
                             <input id='login-username-input' type='text'></input>
 
                             <br/><br/>
