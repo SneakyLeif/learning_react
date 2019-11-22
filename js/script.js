@@ -27,20 +27,12 @@ function load() {
             <br/>
 
             <div className='columns'>
-                <div className='column col-6'  style={{"textAlign": "right"}}>
-                    <div className='float-right p-relative' style={{"fontSize": "21px", "top": "-5px"}}>Username: </div>
+                <div className='column col-12' style={{"textAlign": "center"}}>
+                    <input id='login-username-input' class='form-input' type='text' placeholder='Username'></input>
 
                     <br/><br/>
 
-                    <div className='float-right p-relative' style={{"fontSize": "21px", "top": "1px"}}>Password: </div>
-                </div>
-
-                <div className='column col-6'>
-                    <input id='login-username-input' type='text'></input>
-
-                    <br/><br/>
-
-                    <input id='login-password-input' type='password'></input>
+                    <input id='login-password-input' class='form-input' type='password' placeholder='Password'></input>
                 </div>
             </div>
 
