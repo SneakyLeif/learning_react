@@ -28,11 +28,11 @@ function load() {
 
             <div className='columns'>
                 <div className='column col-12 text-center'>
-                    <input id='login-username-input' className='form-input' type='text' placeholder='Username'></input>
+                    <input id='login-username-input' className='form-input p-centered' type='text' placeholder='Username'></input>
 
                     <br/><br/>
 
-                    <input id='login-password-input' className='form-input' type='password' placeholder='Password'></input>
+                    <input id='login-password-input' className='form-input p-centered' type='password' placeholder='Password'></input>
                 </div>
             </div>
 
