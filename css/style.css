@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    font-family: "Source Sans Pro";
 }
 
 #loading-div {
@@ -12,6 +13,36 @@ html, body {
 #titlebar {
     background-color: #20232a;
     color: white;
-    height: 42px;
-    font-family: "Source Sans Pro";
+    height: 48px;
+}
+
+#dci-login-text {
+    font-size: 52px;
+    font-weight: bold;
+    color: white;
+    text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
+
+#login-username-input::placeholder,
+#login-password-input::placeholder {
+    text-align: center;
+}
+/*
+#login-username-input,
+#login-password-input {
+    border: 1px solid #20232a;
+    padding-left: 5px;
+    padding-right: 5px;
+}*/
+
+#login-password-input {
+    margin-top: 8px;
+}
+
+#login-button-container {
+    margin-top: 4px;
 }

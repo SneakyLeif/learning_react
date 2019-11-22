@@ -8,15 +8,20 @@ var colors = require('colors');
 var fs = require('fs');
 var bcrypt = require('bcrypt');
 
-var pId = 0; // player ID
-var player = {};
+app.use(express.static('./'));
+
+var users = {}; // Stores all user data
+var customers = {}; // Stores all customer data
+var work_orders = {};
+var inventory = {};
+var items = {};
 
 // MySQL Config
 var config = {
 	host: "localhost",
 	user: "node",
 	password: "node",
-	database: "game"
+	database: "dci_project"
 };
 
 // Handling MySQL disconnects
@@ -27,10 +32,10 @@ function handleDisconnect() {
 	// Connecting to the database
 	con.connect(function(err) {
 		if (err) {
-			log(colors.yellow("Error connecting to database.") + colors.red(" :("));
+			log("Error connecting to database. Retrying in 2s...", "red");
 			setTimeout(handleDisconnect, 2000);
 		} else {
-			log(colors.yellow("Connected to database!") + colors.green(" :D"));
+			log("Connected to database!", "green");
 			//server.db_conn = true;
 		}
 	});
@@ -47,29 +52,15 @@ function handleDisconnect() {
 }
 handleDisconnect(); // Connect and start disconnect handler
 
-app.use(express.static('./'));
+
+
+
 
  io.on('connection', function(socket) {
 
-    socket.pId = pId;
-    pId++;
+	log("A user has connected.");
+	
 
-    console.log("player ID "+ socket.pId +" connected :o");
-
-    player[socket.pId] = {
-        stored: 0
-    };
-
-    socket.on("storeClicks", function(clicks) {
-        player[socket.pId].stored += clicks;
-
-        data = {
-            status: true,
-            storedClicks: clicks,
-            totalStored: player[socket.pId].stored
-        };
-        socket.emit("storeResponse", data);
-    })
  });
 
 http.listen(port, () => console.log('Example app listening on port '+ port +'!'));
@@ -103,6 +94,7 @@ process.on('SIGINT', exitHandler.bind(null, {exit: true, type: "shutdown"}));
 // Graceful shutdown
 function exitHandler(options, err) {
 	if (options.exit) {
+		log("Shutting down server.");
 		process.exit();
 	}
 }
