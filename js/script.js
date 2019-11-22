@@ -1,14 +1,14 @@
 'use strict';
 
 function load() {
-    removeElement("loading-div");
+    document.getElementById("loading-div").style.display = 'none';
 
     var element = (
         <div id="titlebar" className='columns'>
             <div className='column col-1'></div>
             <div id='navbar' className='column col-10'>
                 <div className='text-center'>
-                    <img src='img/logo_med.png' style={{"position": "relative", "top": "-4px"}}></img>
+                    <img src='img/logo.png' style={{"height": "80px", "position": "relative", "top": "-4px"}}></img>
                 </div>
             </div>
             <div className='column col-1'></div>
@@ -20,21 +20,28 @@ function load() {
         <div>
             <div className='columns'>
                 <div className='column col-12 text-center'>
-                    <h1 id='dci-login-text'>DCI Login</h1>
+                    <h1>DCI Login</h1>
                 </div>
-
             </div>
 
-            <div className='columns'>
-                <div className='column col-5'></div>
+            <br/>
 
-                <div className='column col-2' style={{"textAlign": "center"}}>
-                        <input id='login-username-input' classname='form-input' placeholder="Username" type='text'></input>
-                        <input id='login-password-input' classname='form-input' placeholder="Password" type='password'></input>
+            <div className='columns'>
+                <div className='column col-6'  style={{"textAlign": "right"}}>
+                    <div className='float-right p-relative' style={{"fontSize": "21px", "top": "-5px"}}>Username: </div>
+
+                    <br/><br/>
+
+                    <div className='float-right p-relative' style={{"fontSize": "21px", "top": "1px"}}>Password: </div>
                 </div>
 
-                <div className='column col-5'></div>
+                <div className='column col-6'>
+                    <input id='login-username-input' type='text'></input>
 
+                    <br/><br/>
+
+                    <input id='login-password-input' type='password'></input>
+                </div>
             </div>
 
             <br/>
@@ -75,7 +82,61 @@ function loginRegister() {
 
 }
 
-function removeElement(str) {
-    var elem = document.querySelector("#"+ str);
-    elem.parentNode.removeChild(elem);
+/*
+var clicks = 0;
+var stored = 0;
+
+function refresh() {
+    ReactDOM.render(<div>Clicks: {clicks}</div>, document.querySelector('#click_count_container'));
+    ReactDOM.render(<div>Stored: {stored}</div>, document.querySelector('#stored_count_container'));
 }
+refresh();
+
+class ClickButton extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    clickButton() {
+        clicks++;
+        refresh();
+    }
+
+    render() {
+        return (
+            <button class="btn" onClick={() => this.clickButton()}>
+                Increment
+            </button>
+        );
+    }
+}
+ReactDOM.render(React.createElement(ClickButton), document.querySelector('#click_button_container'));
+
+class StoreButton extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    clickButton() {
+        if (clicks > 0) {
+            socket.emit("storeClicks", clicks);
+        }
+    }
+
+    render() {
+        return(
+            <button class="btn" onClick={() => this.clickButton()}>
+                Store
+            </button>
+        )
+    }
+}
+ReactDOM.render(React.createElement(StoreButton), document.querySelector('#store_button_container'));
+
+socket.on("storeResponse", function(data) {
+    if (data.status) {
+        clicks -= data.storedClicks;
+        stored = data.totalStored;
+        refresh();
+    }
+});*/
