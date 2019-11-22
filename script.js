@@ -26,33 +26,24 @@ function load() {
             </div>
 
             <br/>
-
+            
             <div className='columns'>
-                <div className='column col-5' style={{"textAlign": "center"}}></div>
 
-                <div className='column col-2'>
-                    <div className='columns'>
+                <div className='column col-6'  style={{"textAlign": "right"}}>
+                    <div className='float-right p-relative' style={{"fontSize": "21px", "top": "-5px"}}>Username: </div>
 
-                        <div className='column col-6'  style={{"textAlign": "right"}}>
-                            <div className='float-right p-relative' style={{"fontSize": "21px", "top": "-5px"}}>Username: </div>
+                    <br/><br/>
 
-                            <br/><br/>
-
-                            <div className='float-right p-relative' style={{"fontSize": "21px", "top": "1px"}}>Password: </div>
-                        </div>
-
-                        <div className='column col-6'>
-                            <input id='login-username-input' type='text'></input>
-
-                            <br/><br/>
-
-                            <input id='login-password-input' type='password'></input>
-                        </div>
-
-                    </div>
+                    <div className='float-right p-relative' style={{"fontSize": "21px", "top": "1px"}}>Password: </div>
                 </div>
 
-                <div className='column col-5'></div>
+                <div className='column col-6'>
+                    <input id='login-username-input' type='text'></input>
+
+                    <br/><br/>
+
+                    <input id='login-password-input' type='password'></input>
+                </div>
 
             </div>
 
