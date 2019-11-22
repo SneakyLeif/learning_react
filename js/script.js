@@ -24,8 +24,6 @@ function load() {
                 </div>
             </div>
 
-            <br/>
-
             <div className='columns'>
                 <div className='column col-12 text-center'>
                     <input id='login-username-input' className='form-input p-centered' type='text' placeholder='Username'></input>
