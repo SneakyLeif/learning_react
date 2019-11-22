@@ -27,13 +27,17 @@ function load() {
             <br/>
 
             <div className='columns'>
-                <div className='column col-12' style={{"textAlign": "center"}}>
+                <div className='column col-5'></div>
+
+                <div className='column col-2' style={{"textAlign": "center"}}>
                     <input id='login-username-input' class='form-input' type='text' placeholder='Username'></input>
 
                     <br/><br/>
 
                     <input id='login-password-input' class='form-input' type='password' placeholder='Password'></input>
                 </div>
+                
+                <div className='column col-5'></div>
             </div>
 
             <br/>
