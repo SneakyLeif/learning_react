@@ -31,13 +31,11 @@ html, body {
 #login-password-input::placeholder {
     text-align: center;
 }
-/*
+
 #login-username-input,
 #login-password-input {
-    border: 1px solid #20232a;
-    padding-left: 5px;
-    padding-right: 5px;
-}*/
+    width: 100px;
+}
 
 #login-password-input {
     margin-top: 8px;
