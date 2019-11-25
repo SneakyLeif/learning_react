@@ -1,7 +1,72 @@
 'use strict';
 
-var mainMenu;
 var titleBar;
+var mainMenu;
+var regMenu;
+
+var CoolForm = posed.form({
+    on: { staggerChildren: 50 }
+});
+var CoolFormItem = posed.div({
+    on: { y: 0, x: 0, opacity: 1 },
+    off: { y: -10, x: -10, opacity: 0 }
+});
+class MainMenu extends React.Component {
+    state = { isOn: false };
+
+    submit(e) {
+        e.preventDefault();
+        login();
+    }
+
+    toggle = () => this.setState({ isOn: !this.state.isOn });
+
+    render() {
+        const { isOn } = this.state;
+    
+        return (
+            <CoolForm id='mainMenu' onSubmit={this.submit} pose={isOn ? 'on' : 'off'}>
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <h1 id='dci-login-text' className='p-centered'>Hi :)</h1>
+                    </div>
+                </CoolFormItem>
+
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <div className='text-input-container p-centered'>
+                            <input id='login-username-input' className='form-input' type='text' placeholder='Username'></input>
+                        </div>
+                    </div>
+                </CoolFormItem>
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <div className='text-input-container p-centered'>
+                            <input id='login-password-input' className='form-input' type='password' placeholder='Password'></input>
+                        </div>
+                    </div>
+                </CoolFormItem>
+
+                <br/>
+
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <div id='login-button-container'>
+                            <button type='submit' id='login-button' className="btn btn-primary">Log In</button>
+                        </div>
+                    </div>
+                </CoolFormItem>
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <div id='login-register-button-container'>
+                            <button type='button' id='login-register-button' className="btn mt-2 tooltip tooltip-bottom" data-tooltip="Click to sign up!" onClick={loginRegister}>Register</button>
+                        </div>
+                    </div>
+                </CoolFormItem>
+            </CoolForm>
+        );
+    }
+}
 
 function load() {
     document.getElementById("loading-div").style.display = 'none';
@@ -46,84 +111,67 @@ function load() {
     }
     titleBar = ReactDOM.render(<TopBar />, document.querySelector('#navbar-container'));
 
-    var Menu = posed.div({
-        on: { staggerChildren: 50 }
-    });
-    var Item = posed.div({
-        on: { y: 0, x: 0, opacity: 1 },
-        off: { y: -10, x: -10, opacity: 0 }
-    });
-    class MainMenu extends React.Component {
-        state = { isOn: false };
-
-        constructor(props) {
-            super(props);
-        }
-    
-        toggle = () => this.setState({ isOn: !this.state.isOn });
-    
-        render() {
-            const { isOn } = this.state;
-        
-            return (
-                <Menu id={this.props.id} pose={isOn ? 'on' : 'off'}>
-                    <Item className='columns item'>
-                        <div className='column col-12 text-center'>
-                            <div className='text-container p-centered tooltip tooltip-right' data-tooltip="Why are you hovering over me? \n Go away">
-                                <h1 id='dci-login-text'>DCI Login</h1>
-                            </div>
-                        </div>
-                    </Item>
-
-                    <Item className='columns item'>
-                        <div className='column col-12 text-center'>
-                            <div className='text-input-container p-centered tooltip tooltip-left' data-tooltip="Username goes here">
-                                <input id='login-username-input' className='form-input' type='text' placeholder='Username'></input>
-                            </div>
-                        </div>
-                    </Item>
-                    <Item className='columns item'>
-                        <div className='column col-12 text-center'>
-                            <div className='text-input-container p-centered tooltip tooltip-left' data-tooltip="Password goes here">
-                                <input id='login-password-input' className='form-input' type='password' placeholder='Password'></input>
-                            </div>
-                        </div>
-                    </Item>
-
-                    <br/>
-
-                    <Item className='columns item'>
-                        <div className='column col-12 text-center'>
-                            <div id='login-button-container'></div>
-                        </div>
-                    </Item>
-                    <Item className='columns item'>
-                        <div className='column col-12 text-center'>
-                            <div id='login-register-button-container'></div>
-                        </div>
-                    </Item>
-                </Menu>
-            );
-        }
-    }
-    mainMenu = ReactDOM.render(<MainMenu id='mainMenu' />, document.querySelector('#main-container'));
+    mainMenu = ReactDOM.render(<MainMenu />, document.querySelector('#main-container'));
     setTimeout(() => mainMenu.toggle(), 200);
-
-    class LoginButton extends React.Component {
-        render() {
-            return (<button id='login-button' className="btn btn-primary tooltip" data-tooltip="Click to sign in!" onClick={login}>Log In</button>);
-        }
-    }
-    ReactDOM.render(React.createElement(LoginButton), document.querySelector('#login-button-container'));
-
-    class LoginRegisterButton extends React.Component {
-        render() {
-            return (<button id='login-register-button' className="btn mt-2 tooltip tooltip-bottom" data-tooltip="Click to sign up!" onClick={loginRegister}>Register</button>);
-        }
-    }
-    ReactDOM.render(React.createElement(LoginRegisterButton), document.querySelector('#login-register-button-container'));
 }
 load();
+
+class RegisterMenu extends React.Component {
+    state = { isOn: false };
+
+    submit(e) {
+        e.preventDefault();
+        register();
+    }
+
+    toggle = () => this.setState({ isOn: !this.state.isOn });
+
+    render() {
+        const { isOn } = this.state;
+        
+        return (
+            <CoolForm id='regMenu' onSubmit={this.submit} pose={isOn ? 'on' : 'off'}>
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <h1 id='dci-register-text' className='p-centered'>Making an account? Nice :)</h1>
+                    </div>
+                </CoolFormItem>
+
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>First, let's start off by entering the Access Code given to you by your administrator/supervisor:</div>
+                </CoolFormItem>
+
+                <br/>
+
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <div className='text-input-container p-centered'>
+                            <input id='register-code-input' className='form-input' type='text' placeholder='Access Code'></input>
+                        </div>
+                    </div>
+                </CoolFormItem>
+
+                <br/>
+
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <div id='register-back-button-container'>
+                            <button type='submit' id='register-continue-button' className="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                </CoolFormItem>
+                <CoolFormItem className='columns item'>
+                    <div className='column col-12 text-center'>
+                        <div id='register-back-button-container'>
+                            <button type='button' id='register-back-button' className="btn mt-2" onClick={registerBack}>Back</button>
+                        </div>
+                    </div>
+                </CoolFormItem>
+            </CoolForm>
+        );
+        
+    }
+}
 
 function login() {
     // Add loading animation to button
@@ -133,11 +181,38 @@ function login() {
         user: document.getElementById("login-username-input").value,
         pass: document.getElementById("login-password-input").value
     };
-    console.log(data.user);
 
     socket.emit("submit-login", data);
 }
+socket.on("login-response", function(data) {
+    if (data.status) {
+        console.log("Hi there "+ data.username);
+
+        mainMenu.toggle();
+        setTimeout(function() {
+            
+        }, 200);
+    } else {
+        console.log(data);
+    }
+});
 
 function loginRegister() {
-    
+    mainMenu.toggle();
+    setTimeout(function() {
+        regMenu = ReactDOM.render(<RegisterMenu />, document.querySelector('#main-container'));
+        regMenu.toggle();
+    }, 200);
+}
+
+function registerBack() {
+    regMenu.toggle();
+    setTimeout(function() {
+        mainMenu = ReactDOM.render(<MainMenu />, document.querySelector('#main-container'));
+        mainMenu.toggle();
+    }, 200);
+}
+
+function register() {
+    console.log("no can do :(");
 }

@@ -70,7 +70,7 @@ function createUserObj(res) {
 	delete user.id;
 
 	user.online = false;
-
+	
 	return user;
 }
 
@@ -326,7 +326,7 @@ io.on('connection', function(socket) {
 
 	function logIn(id) {
 		if (users.hasOwnProperty(id)) {
-			socket.pId = id;
+			socket.uId = id;
 
 			io.in("p-"+ id).clients((err, clients) => {
 				if (clients.length == 0) {
@@ -337,7 +337,8 @@ io.on('connection', function(socket) {
 			users[id].online = true;
 
 			data = {
-				status: true
+				status: true,
+				username: users[socket.uId].user
 			};
 
 			socket.emit('login-response', data);
@@ -349,14 +350,14 @@ io.on('connection', function(socket) {
 	}
 	
 	socket.on('disconnect', function() {
-		if (socket.hasOwnProperty("pId")) {
-			users[socket.pId].online = false;
+		if (socket.hasOwnProperty("uId")) {
+			users[socket.uId].online = false;
 
-			users[socket.pId].last_online = Date.now();
-			var sql = "UPDATE users SET last_online = '"+ users[socket.pId].last_online +"' WHERE id ='"+ socket.pId +"'";
+			users[socket.uId].last_online = Date.now();
+			var sql = "UPDATE users SET last_online = '"+ users[socket.uId].last_online +"' WHERE id ='"+ socket.uId +"'";
 			con.query(sql, function(err, result) {if (err) throw err});
 
-			log(users[socket.pId].user +" has gone offline :(", "gray");
+			log(users[socket.uId].user +" has gone offline :(", "gray");
 		} else {
 			log("A user has disconnected :(", "gray");
 		}
