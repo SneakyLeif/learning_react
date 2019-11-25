@@ -59,7 +59,7 @@ class MainMenu extends React.Component {
                 <CoolFormItem className='columns item'>
                     <div className='column col-12 text-center'>
                         <div id='login-register-button-container'>
-                            <button type='button' id='login-register-button' className="btn mt-2 tooltip tooltip-bottom" data-tooltip="Click to sign up!" onClick={loginRegister}>Register</button>
+                            <button type='button' id='login-register-button' className="btn mt-2 tooltip tooltip-bottom" data-tooltip="Click to sign up! :)" onClick={loginRegister}>Register</button>
                         </div>
                     </div>
                 </CoolFormItem>
@@ -163,7 +163,7 @@ class RegisterMenu extends React.Component {
                 <CoolFormItem className='columns item'>
                     <div className='column col-12 text-center'>
                         <div id='register-back-button-container'>
-                            <button type='button' id='register-back-button' className="btn mt-2" onClick={registerBack}>Back</button>
+                            <button type='button' id='register-back-button' className="btn mt-2 tooltip tooltip-bottom" data-tooltip="Changed your mind? :(" onClick={registerBack}>Back</button>
                         </div>
                     </div>
                 </CoolFormItem>
