@@ -1,22 +1,30 @@
 'use strict';
 
+var user = {
+    name: ""
+};
+
 var titleBar;
 var mainMenu;
 var regMenu;
+var leftNavBar;
+var rightNavBar;
+var focusScreen;
 
 var CoolForm = posed.form({
-    on: { staggerChildren: 50 }
+    on: { staggerChildren: 75 },
+    off: { staggerChildren: 25 }
 });
 var CoolFormItem = posed.div({
     on: { y: 0, x: 0, opacity: 1 },
-    off: { y: -10, x: -10, opacity: 0 }
+    off: { y: -10, x: -20, opacity: 0 }
 });
 class MainMenu extends React.Component {
     state = { isOn: false };
 
     submit(e) {
         e.preventDefault();
-        login();
+        login_submit();
     }
 
     toggle = () => this.setState({ isOn: !this.state.isOn });
@@ -72,12 +80,11 @@ function load() {
     document.getElementById("loading-div").style.display = 'none';
 
     var TitleBar = posed.div({
-        on: {y: 0},
-        off: {y: -40}
+        on: {y: 0}
     });
     var TitleBarLogo = posed.img({
-        on: {y: 0, delay: 100},
-        off: {y: -40, delay: 100}
+        on: {y: 0},
+        off: {y: -50}
     });
     class TopBar extends React.Component {
         state = { isOn: false };
@@ -97,13 +104,13 @@ function load() {
         
             return (
                 <TitleBar id="titlebar" className='columns' pose={isOn ? 'on' : 'off'}>
-                    <div className='column col-1'></div>
-                    <div id='navbar' className='column col-10'>
+                    <div id='left-navbar' className='column col-5'></div>
+                    <div id='navbar' className='column col-2 dciLogo'>
                         <div className='text-center'>
-                            <TitleBarLogo src='img/logo.png' style={{"height": "80px", "position": "relative", "top": "16px"}}></TitleBarLogo>
+                            <TitleBarLogo src='img/logo.png' style={{"position": "relative", "height": "80px", "opacity": "1", "z-index": "10"}}></TitleBarLogo>
                         </div>
                     </div>
-                    <div className='column col-1'></div>
+                    <div id='right-navbar' className='column col-5'></div>
                 </TitleBar>
             );
             
@@ -173,9 +180,173 @@ class RegisterMenu extends React.Component {
     }
 }
 
-function login() {
+var CoolTabsLeft = posed.section({
+    on: {
+        staggerChildren: 100,
+        staggerDirection: -1,
+        opacity: 1
+    },
+    off: {
+        opacity: 0
+    }
+});
+var CoolTabsRight = posed.section({
+    on: {
+        staggerChildren: 100,
+        opacity: 1
+    },
+    off: {
+        opacity: 0
+    }
+});
+var CoolTabItem = posed.div({
+    on: {
+        y: 0,
+        x: 0,
+        opacity: 1
+    },
+    off: {
+        y: 10,
+        x: 0,
+        opacity: 0
+    }
+});
+class Tabs extends React.Component {
+    state = { isOn: false };
+
+    constructor(props) {
+        super(props);
+    }
+
+    toggle = () => this.setState({ isOn: !this.state.isOn });
+
+    render() {
+        const { isOn } = this.state;
+
+        if (this.props.id == 'left-bar') {
+            return (
+                <CoolTabsLeft class="tab tab-block" pose={isOn ? 'on' : 'off'}>
+                    <CoolTabItem class="tab-item">
+                        <a href="#" onClick={() => changeTab(1)}>Invoices</a>
+                    </CoolTabItem>
+                    <CoolTabItem class="tab-item">
+                        <a href="#" onClick={() => changeTab(2)}>Work Orders</a>
+                    </CoolTabItem>
+                    <CoolTabItem class="tab-item">
+                        <a href="#" onClick={() => changeTab(3)}>Customers</a>
+                    </CoolTabItem>
+                    <CoolTabItem class="tab-item active">
+                        <a href="#" onClick={() => changeTab(4)}>Dashboard</a>
+                    </CoolTabItem>
+                </CoolTabsLeft>
+            );
+        } else if (this.props.id == 'right-bar') {
+            return (
+                <CoolTabsRight class="tab tab-block" pose={isOn ? 'on' : 'off'}>
+                    <CoolTabItem class="tab-item">
+                        <a href="#" onClick={() => changeTab(5)}>Inventory</a>
+                    </CoolTabItem>
+                    <CoolTabItem class="tab-item">
+                        <a href="#" onClick={() => changeTab(6)}>Vendors</a>
+                    </CoolTabItem>
+                    <CoolTabItem class="tab-item">
+                        <a href="#" onClick={() => changeTab(7)}>Purchasing</a>
+                    </CoolTabItem>
+                    <CoolTabItem class="tab-item">
+                        <a href="#" onClick={() => changeTab(8)}>Settings</a>
+                    </CoolTabItem>
+                </CoolTabsRight>
+            );
+        }
+        
+    }
+}
+var leftNavBar = ReactDOM.render(<Tabs id='left-bar' />, document.querySelector('#left-navbar'));
+var rightNavBar = ReactDOM.render(<Tabs id='right-bar' />, document.querySelector('#right-navbar'));
+
+function changeTab(tab) {
+    if (tab == 1) {
+        console.log("inv");
+    } else if (tab == 2) {
+        console.log("wo's");
+    } else if (tab == 3) {
+        console.log("hi");
+    } else if (tab == 4) {
+        
+    } else if (tab == 5) {
+        
+    } else if (tab == 6) {
+        
+    } else if (tab == 7) {
+        
+    } else if (tab == 8) {
+        
+    }
+}
+
+var AnimatedFocusScreen = posed.div({
+    on: {
+        y: 0,
+        opacity: 1,
+        transition: { duration: 300, ease: "backIn", type: "spring", damping: 15, mass: 0.85 },
+        "margin-left": "0px",
+        "margin-right": "0px",
+        width: "100%"
+    },
+    off: {
+        y: "50%",
+        opacity: 0,
+        transition: { duration: 300, ease: "backOut", type: "spring"},
+        "margin-left": "25%",
+        "margin-right": "25%",
+        width: "50%"
+    }
+});
+class FocusScreen extends React.Component {
+    state = { isOn: false };
+
+    constructor(props) {
+        super(props);
+    }
+
+    toggle = () => this.setState({ isOn: !this.state.isOn });
+
+    render() {
+        const { isOn } = this.state;
+
+        return (
+            <AnimatedFocusScreen id='focus-screen' pose={isOn ? 'on' : 'off'}>
+
+            </AnimatedFocusScreen>
+        );
+    }
+}
+/*
+class Customers extends React.Component {
+    state = { isOn: false };
+
+    constructor(props) {
+        super(props);
+    }
+
+    toggle = () => this.setState({ isOn: !this.state.isOn });
+
+    render() {
+        const { isOn } = this.state;
+
+        return (
+
+        );
+    }
+}
+*/
+class Dashboard extends React.Component {
+
+}
+
+function login_submit() {
     // Add loading animation to button
-    document.getElementById("login-button").classList.replace("tooltip", "loading");
+    document.getElementById("login-button").classList.add("loading");
 
     var data = {
         user: document.getElementById("login-username-input").value,
@@ -188,8 +359,18 @@ socket.on("login-response", function(data) {
     if (data.status) {
         console.log("Hi there "+ data.username);
 
+        user.name = data.username;
+
+        document.getElementById("login-button").classList.remove("loading");
+        document.getElementById("login-button").innerHTML = "Done!";
+
         mainMenu.toggle();
         setTimeout(function() {
+            leftNavBar.toggle();
+            rightNavBar.toggle();
+            focusScreen = ReactDOM.render(<FocusScreen />, document.querySelector('#main-container'));
+            //setTimeout(() => focusScreen.toggle(), 300);
+            focusScreen.toggle();
             
         }, 200);
     } else {

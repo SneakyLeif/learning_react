@@ -12,7 +12,7 @@ app.use(express.static('./'));
 
 var users = {}; // Stores all user data
 var uIndex = {};
-var customers = {}; // Stores all customer data
+var customers = []; // Stores all customer data
 var work_orders = {};
 var inventory = {};
 var items = {};
@@ -79,18 +79,12 @@ con.query("SELECT * FROM customers", function(err, res) {
 	if (err) throw err;
 
 	for (var i= 0; i < res.length; i++) {
-		customers[res[i].id] = createCustomerObj(res[i]);
+		customers[i] = res[i];
 	}
 
 	log("customers loaded!", "green");
+	console.log(customers);
 });
-// Create customer object
-function createCustomerObj(res) {
-	var cust = JSON.parse( JSON.stringify( res ) );
-	delete cust.id;
-
-	return cust;
-}
 
 io.on('connection', function(socket) {
 
@@ -409,3 +403,5 @@ function exitHandler(options, err) {
 		process.exit();
 	}
 }
+
+objs.sort((a,b) => (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0)); 
